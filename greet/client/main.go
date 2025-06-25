@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"log"
 
 	"google.golang.org/grpc"
@@ -23,15 +22,6 @@ func main() {
 
 	c := pb.NewGreetServiceClient(conn)
 
-	req := &pb.GreetRequest{
-		Name: "Akshat",
-	}
-
-	res, err := c.Greet(context.Background(), req)
-	if err != nil {
-		log.Fatalf("Error while calling Greet RPC: %v", err)
-	}
-
-	log.Printf("Response from Greet: %v", res.Result)
-
+	// doGreet(c)
+	doGreetManyTimes(c)
 }
