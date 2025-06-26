@@ -25,5 +25,8 @@ func main() {
 	// doGreet(c)
 	// doGreetManyTimes(c)
 	// doLongGreet(c)
-	doGreetEveryone(c)
+	// doGreetEveryone(c)
+	if err := doGreetWithDeadline(c); err != nil {
+		log.Fatalf("Error while calling GreetWithDeadline: %v", err)
+	}
 }

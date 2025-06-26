@@ -22,5 +22,8 @@ func main() {
 	// doSum(client)
 	// doPrime(client)
 	// doAverage(client)
-	doMax(client)
+	// doMax(client)
+	if err := doSqrt(client); err != nil {
+		log.Fatalf("Error while calling Sqrt: %v", err)
+	}
 }
