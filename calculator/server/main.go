@@ -4,15 +4,14 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/Akshat120/grpc-go-course/sum/proto"
+	pb "github.com/Akshat120/grpc-go-course/calculator/proto"
 	"google.golang.org/grpc"
 )
 
 var addr string = "0.0.0.0:50051"
 
 type Server struct {
-	pb.UnimplementedSumServiceServer
-	SumRequest pb.SumServiceServer
+	pb.UnimplementedCalculatorServiceServer
 }
 
 func main() {
@@ -23,7 +22,7 @@ func main() {
 	log.Printf("server listening at %s", addr)
 
 	s := grpc.NewServer()
-	pb.RegisterSumServiceServer(s, &Server{})
+	pb.RegisterCalculatorServiceServer(s, &Server{})
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)

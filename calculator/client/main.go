@@ -1,10 +1,9 @@
 package main
 
 import (
-	"context"
 	"log"
 
-	pb "github.com/Akshat120/grpc-go-course/sum/proto"
+	pb "github.com/Akshat120/grpc-go-course/calculator/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -18,15 +17,8 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := pb.NewSumServiceClient(conn)
+	client := pb.NewCalculatorServiceClient(conn)
 
-	resp, err := client.Sum(context.Background(), &pb.SumRequest{
-		A: 343,
-		B: 212,
-	})
-	if err != nil {
-		log.Fatalf("Failed to sum: %v", err)
-	}
-
-	log.Printf("Sum: %d", resp.Result)
+	doSum(client)
+	doPrime(client)
 }

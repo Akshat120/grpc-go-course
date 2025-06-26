@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.3
-// source: sum/proto/sum.proto
+// source: calculator/proto/sum.proto
 
 package proto
 
@@ -31,7 +31,7 @@ type SumRequest struct {
 
 func (x *SumRequest) Reset() {
 	*x = SumRequest{}
-	mi := &file_sum_proto_sum_proto_msgTypes[0]
+	mi := &file_calculator_proto_sum_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +43,7 @@ func (x *SumRequest) String() string {
 func (*SumRequest) ProtoMessage() {}
 
 func (x *SumRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sum_proto_sum_proto_msgTypes[0]
+	mi := &file_calculator_proto_sum_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +56,7 @@ func (x *SumRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SumRequest.ProtoReflect.Descriptor instead.
 func (*SumRequest) Descriptor() ([]byte, []int) {
-	return file_sum_proto_sum_proto_rawDescGZIP(), []int{0}
+	return file_calculator_proto_sum_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SumRequest) GetA() int32 {
@@ -82,7 +82,7 @@ type SumResponse struct {
 
 func (x *SumResponse) Reset() {
 	*x = SumResponse{}
-	mi := &file_sum_proto_sum_proto_msgTypes[1]
+	mi := &file_calculator_proto_sum_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -94,7 +94,7 @@ func (x *SumResponse) String() string {
 func (*SumResponse) ProtoMessage() {}
 
 func (x *SumResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sum_proto_sum_proto_msgTypes[1]
+	mi := &file_calculator_proto_sum_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -107,7 +107,7 @@ func (x *SumResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SumResponse.ProtoReflect.Descriptor instead.
 func (*SumResponse) Descriptor() ([]byte, []int) {
-	return file_sum_proto_sum_proto_rawDescGZIP(), []int{1}
+	return file_calculator_proto_sum_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SumResponse) GetResult() int32 {
@@ -117,68 +117,64 @@ func (x *SumResponse) GetResult() int32 {
 	return 0
 }
 
-var File_sum_proto_sum_proto protoreflect.FileDescriptor
+var File_calculator_proto_sum_proto protoreflect.FileDescriptor
 
-const file_sum_proto_sum_proto_rawDesc = "" +
+const file_calculator_proto_sum_proto_rawDesc = "" +
 	"\n" +
-	"\x13sum/proto/sum.proto\x12\x03sum\"(\n" +
+	"\x1acalculator/proto/sum.proto\x12\n" +
+	"calculator\"(\n" +
 	"\n" +
 	"SumRequest\x12\f\n" +
 	"\x01a\x18\x01 \x01(\x05R\x01a\x12\f\n" +
 	"\x01b\x18\x02 \x01(\x05R\x01b\"%\n" +
 	"\vSumResponse\x12\x16\n" +
-	"\x06result\x18\x01 \x01(\x05R\x06result26\n" +
-	"\n" +
-	"SumService\x12(\n" +
-	"\x03Sum\x12\x0f.sum.SumRequest\x1a\x10.sum.SumResponseB/Z-github.com/Akshat120/grpc-go-course/sum/protob\x06proto3"
+	"\x06result\x18\x01 \x01(\x05R\x06resultB6Z4github.com/Akshat120/grpc-go-course/calculator/protob\x06proto3"
 
 var (
-	file_sum_proto_sum_proto_rawDescOnce sync.Once
-	file_sum_proto_sum_proto_rawDescData []byte
+	file_calculator_proto_sum_proto_rawDescOnce sync.Once
+	file_calculator_proto_sum_proto_rawDescData []byte
 )
 
-func file_sum_proto_sum_proto_rawDescGZIP() []byte {
-	file_sum_proto_sum_proto_rawDescOnce.Do(func() {
-		file_sum_proto_sum_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_sum_proto_sum_proto_rawDesc), len(file_sum_proto_sum_proto_rawDesc)))
+func file_calculator_proto_sum_proto_rawDescGZIP() []byte {
+	file_calculator_proto_sum_proto_rawDescOnce.Do(func() {
+		file_calculator_proto_sum_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_calculator_proto_sum_proto_rawDesc), len(file_calculator_proto_sum_proto_rawDesc)))
 	})
-	return file_sum_proto_sum_proto_rawDescData
+	return file_calculator_proto_sum_proto_rawDescData
 }
 
-var file_sum_proto_sum_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_sum_proto_sum_proto_goTypes = []any{
-	(*SumRequest)(nil),  // 0: sum.SumRequest
-	(*SumResponse)(nil), // 1: sum.SumResponse
+var file_calculator_proto_sum_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_calculator_proto_sum_proto_goTypes = []any{
+	(*SumRequest)(nil),  // 0: calculator.SumRequest
+	(*SumResponse)(nil), // 1: calculator.SumResponse
 }
-var file_sum_proto_sum_proto_depIdxs = []int32{
-	0, // 0: sum.SumService.Sum:input_type -> sum.SumRequest
-	1, // 1: sum.SumService.Sum:output_type -> sum.SumResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+var file_calculator_proto_sum_proto_depIdxs = []int32{
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_sum_proto_sum_proto_init() }
-func file_sum_proto_sum_proto_init() {
-	if File_sum_proto_sum_proto != nil {
+func init() { file_calculator_proto_sum_proto_init() }
+func file_calculator_proto_sum_proto_init() {
+	if File_calculator_proto_sum_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_sum_proto_sum_proto_rawDesc), len(file_sum_proto_sum_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_calculator_proto_sum_proto_rawDesc), len(file_calculator_proto_sum_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   0,
 		},
-		GoTypes:           file_sum_proto_sum_proto_goTypes,
-		DependencyIndexes: file_sum_proto_sum_proto_depIdxs,
-		MessageInfos:      file_sum_proto_sum_proto_msgTypes,
+		GoTypes:           file_calculator_proto_sum_proto_goTypes,
+		DependencyIndexes: file_calculator_proto_sum_proto_depIdxs,
+		MessageInfos:      file_calculator_proto_sum_proto_msgTypes,
 	}.Build()
-	File_sum_proto_sum_proto = out.File
-	file_sum_proto_sum_proto_goTypes = nil
-	file_sum_proto_sum_proto_depIdxs = nil
+	File_calculator_proto_sum_proto = out.File
+	file_calculator_proto_sum_proto_goTypes = nil
+	file_calculator_proto_sum_proto_depIdxs = nil
 }
