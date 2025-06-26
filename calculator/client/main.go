@@ -19,6 +19,8 @@ func main() {
 
 	client := pb.NewCalculatorServiceClient(conn)
 
-	doSum(client)
-	doPrime(client)
+	// doSum(client)
+	// doPrime(client)
+	// doAverage(client)
+	doMax(client)
 }

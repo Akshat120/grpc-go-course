@@ -19,8 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CalculatorService_Sum_FullMethodName   = "/calculator.CalculatorService/Sum"
-	CalculatorService_Prime_FullMethodName = "/calculator.CalculatorService/Prime"
+	CalculatorService_Sum_FullMethodName     = "/calculator.CalculatorService/Sum"
+	CalculatorService_Prime_FullMethodName   = "/calculator.CalculatorService/Prime"
+	CalculatorService_Average_FullMethodName = "/calculator.CalculatorService/Average"
+	CalculatorService_Max_FullMethodName     = "/calculator.CalculatorService/Max"
 )
 
 // CalculatorServiceClient is the client API for CalculatorService service.
@@ -29,6 +31,8 @@ const (
 type CalculatorServiceClient interface {
 	Sum(ctx context.Context, in *SumRequest, opts ...grpc.CallOption) (*SumResponse, error)
 	Prime(ctx context.Context, in *PrimeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[PrimeResponse], error)
+	Average(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[AverageRequest, AverageResponse], error)
+	Max(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[MaxRequest, MaxResponse], error)
 }
 
 type calculatorServiceClient struct {
@@ -68,12 +72,40 @@ func (c *calculatorServiceClient) Prime(ctx context.Context, in *PrimeRequest, o
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type CalculatorService_PrimeClient = grpc.ServerStreamingClient[PrimeResponse]
 
+func (c *calculatorServiceClient) Average(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[AverageRequest, AverageResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[1], CalculatorService_Average_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[AverageRequest, AverageResponse]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CalculatorService_AverageClient = grpc.ClientStreamingClient[AverageRequest, AverageResponse]
+
+func (c *calculatorServiceClient) Max(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[MaxRequest, MaxResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[2], CalculatorService_Max_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[MaxRequest, MaxResponse]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CalculatorService_MaxClient = grpc.BidiStreamingClient[MaxRequest, MaxResponse]
+
 // CalculatorServiceServer is the server API for CalculatorService service.
 // All implementations must embed UnimplementedCalculatorServiceServer
 // for forward compatibility.
 type CalculatorServiceServer interface {
 	Sum(context.Context, *SumRequest) (*SumResponse, error)
 	Prime(*PrimeRequest, grpc.ServerStreamingServer[PrimeResponse]) error
+	Average(grpc.ClientStreamingServer[AverageRequest, AverageResponse]) error
+	Max(grpc.BidiStreamingServer[MaxRequest, MaxResponse]) error
 	mustEmbedUnimplementedCalculatorServiceServer()
 }
 
@@ -89,6 +121,12 @@ func (UnimplementedCalculatorServiceServer) Sum(context.Context, *SumRequest) (*
 }
 func (UnimplementedCalculatorServiceServer) Prime(*PrimeRequest, grpc.ServerStreamingServer[PrimeResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method Prime not implemented")
+}
+func (UnimplementedCalculatorServiceServer) Average(grpc.ClientStreamingServer[AverageRequest, AverageResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method Average not implemented")
+}
+func (UnimplementedCalculatorServiceServer) Max(grpc.BidiStreamingServer[MaxRequest, MaxResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method Max not implemented")
 }
 func (UnimplementedCalculatorServiceServer) mustEmbedUnimplementedCalculatorServiceServer() {}
 func (UnimplementedCalculatorServiceServer) testEmbeddedByValue()                           {}
@@ -140,6 +178,20 @@ func _CalculatorService_Prime_Handler(srv interface{}, stream grpc.ServerStream)
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type CalculatorService_PrimeServer = grpc.ServerStreamingServer[PrimeResponse]
 
+func _CalculatorService_Average_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CalculatorServiceServer).Average(&grpc.GenericServerStream[AverageRequest, AverageResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CalculatorService_AverageServer = grpc.ClientStreamingServer[AverageRequest, AverageResponse]
+
+func _CalculatorService_Max_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CalculatorServiceServer).Max(&grpc.GenericServerStream[MaxRequest, MaxResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type CalculatorService_MaxServer = grpc.BidiStreamingServer[MaxRequest, MaxResponse]
+
 // CalculatorService_ServiceDesc is the grpc.ServiceDesc for CalculatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -157,6 +209,17 @@ var CalculatorService_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "Prime",
 			Handler:       _CalculatorService_Prime_Handler,
 			ServerStreams: true,
+		},
+		{
+			StreamName:    "Average",
+			Handler:       _CalculatorService_Average_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Max",
+			Handler:       _CalculatorService_Max_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "calculator/proto/calculator.proto",
